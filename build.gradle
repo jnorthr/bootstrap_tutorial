@@ -1,0 +1,53 @@
+// bootstrap_tutorial build.gradle
+
+buildscript {
+  repositories {
+    mavenCentral()
+    jcenter()
+    //maven { url "https://oss.sonatype.org/content/repositories/springsource-milestones" }
+  }
+  dependencies {
+    classpath 'org.akhikhl.gretty:gretty:+'
+    //classpath group: 'org.cloudfoundry', name: 'cf-gradle-plugin', version: '1.0.4'
+  }
+}
+ 
+apply plugin: 'groovy'
+apply plugin: 'war'
+apply plugin: 'org.akhikhl.gretty'
+
+defaultTasks 'clean', 'build', 'war'   //'template', 'copy', 'war' //,'cf-login','cf-delete','cf-push' 
+
+// prepare for gradle 2.0+ - wrap defs in project.ext closure
+project.ext {
+	// current Caelyf version
+	caelyfVersion = '1.3.4'
+	groovyVersion = '2.4.7'
+	servletApiVersion = '2.5'
+}
+
+// war property
+//webAppDirName = file('war')
+//war.duplicatesStrategy = "EXCLUDE"
+
+repositories {
+    mavenCentral()
+}
+
+
+dependencies {
+    compile 'org.codehaus.groovy:groovy-all:2.4.7'
+    runtime 'org.codehaus.groovy:groovy-all:2.4.7'
+    testCompile "javax.servlet:servlet-api:$servletApiVersion"
+}
+
+test {
+        maxParallelForks = Runtime.getRuntime().availableProcessors()
+}
+
+gretty {
+    port = 8080
+    contextPath = '/'
+    servletContainer = 'jetty7'
+}
+

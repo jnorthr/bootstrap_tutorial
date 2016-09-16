@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en"> 
+<head>
+<meta charset="utf-8"/>		
+
+<title>Bootstrap 3.3.4</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	</head>
+	<body>
+		
+		
+		<!-- Begin article container -->
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-9">
+						<div class="panel panel-default">
+							
+							<div class = "panel-body">
+								<div class="page-header jumbotron">
+									<h3>Whatever you want <small>Posted on July 26th</small></h3>
+									<p>Smelly fish have an un-mistakeable aroma.</p>
+								</div>
+								
+      <p>Click on the button to load result.html file</p>		
+      <p id = "stage">STAGE</p>		
+      <input type = "button" id = "driver" value = "Load Data" />
+
+							</div>
+						</div>
+				</div>
+			</div>
+		</div>
+		<!-- End article container -->
+		
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+        <script type = "text/javascript" language = "javascript">
+         $(document).ready(function() {
+			
+            $("#driver").click(function(event){
+$.ajax({
+  type: "POST",
+  url: "WEB-INF/groovy/datetime.groovy",
+  data: "name=Jim",
+  success: function(msg){
+        alert( "Data Saved: " + msg );
+  },
+  error: function(XMLHttpRequest, textStatus, errorThrown) {
+     alert("some error:"+errorThrown);
+  }
+});							
+            });
+				
+         });
+      </script>
+		
+
+	</body>
+</html>
